@@ -26,6 +26,7 @@ def download_audio():
             'preferredquality': '192',
         }],
         'quiet': True,
+        'cookiefile': 'cookies.txt',
     }
 
     try:
