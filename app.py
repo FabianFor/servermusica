@@ -19,11 +19,14 @@ def download_audio():
     if not url:
         return jsonify({"error": "No URL provided"}), 400
 
+    if not os.path.exists('cookies.txt'):
+        return jsonify({"error": "Archivo cookies.txt no encontrado en el servidor"}), 500
+
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': os.path.join(DOWNLOAD_FOLDER, '%(title)s.%(ext)s'),
         'quiet': True,
-        'cookies': 'cookies.txt',  # ← CORRECTO aquí
+        'cookiefile': 'cookies.txt',  # ← CORRECTO AQUÍ
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
