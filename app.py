@@ -23,6 +23,7 @@ def download_audio():
         'format': 'bestaudio/best',
         'outtmpl': os.path.join(DOWNLOAD_FOLDER, '%(title)s.%(ext)s'),
         'quiet': True,
+        'cookies': 'cookies.txt',  # ← CORRECTO aquí
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -54,4 +55,4 @@ def get_file(filename):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
