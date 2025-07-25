@@ -26,7 +26,7 @@ def download_audio():
             'preferredquality': '192',
         }],
         'quiet': True,
-        'cookiefile': 'cookies.txt',
+        # 'cookiefile': 'cookies.txt',  # Línea eliminada para no usar cookies
     }
 
     try:
@@ -34,6 +34,8 @@ def download_audio():
             info = ydl.extract_info(url, download=True)
         filename = f"{info['title']}.mp3"
         return jsonify({"message": "Download completed", "file": filename})
+    except yt_dlp.utils.DownloadError:
+        return jsonify({"error": "No se pudo descargar el video. Puede que esté restringido o no disponible sin login."}), 400
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
