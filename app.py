@@ -17,15 +17,15 @@ def download_audio():
 
     ydl_opts = {
         'format': 'bestaudio/best',
-        'outtmpl': os.path.join(DOWNLOAD_FOLDER, '%(title)s.%(ext)s'),  # guarda con extensión original
+        'outtmpl': os.path.join(DOWNLOAD_FOLDER, '%(title)s.%(ext)s'),
         'quiet': True,
-        # Sin postprocesadores para evitar necesidad de ffmpeg
+        'cookiefile': 'cookies.txt',  # ← Usamos cookies
     }
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
-        filename = f"{info['title']}.{info['ext']}"  # extensión real que se descargó
+        filename = f"{info['title']}.{info['ext']}"
         return jsonify({"message": "Download completed", "file": filename})
     except yt_dlp.utils.DownloadError:
         return jsonify({"error": "No se pudo descargar el video. Puede que esté restringido o no disponible sin login."}), 400
