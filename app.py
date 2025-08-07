@@ -26,7 +26,7 @@ def download_audio():
         'format': 'bestaudio/best',
         'outtmpl': os.path.join(DOWNLOAD_FOLDER, '%(title)s.%(ext)s'),
         'quiet': True,
-        'cookiefile': 'cookies.txt',  # ← CORRECTO AQUÍ
+        'cookiefile': 'cookies.txt',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -56,6 +56,7 @@ def get_file(filename):
         return jsonify({"error": "File not found"}), 404
     return send_from_directory(DOWNLOAD_FOLDER, filename, as_attachment=True)
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+# ⚠️ Este bloque solo se ejecuta localmente, así que lo eliminamos
+# if __name__ == '__main__':
+#     port = int(os.environ.get('PORT', 5000))
+#     app.run(host='0.0.0.0', port=port, debug=True)
